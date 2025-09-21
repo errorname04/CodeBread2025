@@ -7,7 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Launcher implements SubSystem {
 
     private final Config config;
-    private DcMotor launchMotor;
+    private DcMotor launchMotor1;
+    private DcMotor launchMotor2;
 
     public Launcher(Config cfg){
         this.config = cfg;
@@ -15,13 +16,19 @@ public class Launcher implements SubSystem {
 
     @Override
     public void init() {
-        launchMotor = config.hardwareMap.get(DcMotor.class, Config.SLIDE_MOTOR);
+        launchMotor1 = config.hardwareMap.get(DcMotor.class, Config.LAUNCH_MOTOR);
         // Reset the encoder and set it to be in RUN_TO_POSITION
-        launchMotor.setDirection(DcMotor.Direction.FORWARD);
-        launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        launchMotor1.setDirection(DcMotor.Direction.FORWARD);
+        launchMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        launchMotor2 = config.hardwareMap.get(DcMotor.class, Config.LAUNCH_MOTOR2);
+        // Reset the encoder and set it to be in RUN_TO_POSITION
+        launchMotor2.setDirection(DcMotor.Direction.FORWARD);
+        launchMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public void update() {
-        double slidepower = config.gamePad2.right_stick_y;  // Note: pushing stick forward gives negative value
-        launchMotor.setPower(slidepower*2/3.5);
+        double launchpower = config.gamePad2.right_stick_y;  // Note: pushing stick forward gives negative value
+        launchMotor1.setPower(launchpower*2/3.5);
+        launchMotor2.setPower(launchpower*-2/3.5);
     }
 }

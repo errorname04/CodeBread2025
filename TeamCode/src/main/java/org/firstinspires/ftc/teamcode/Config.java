@@ -20,7 +20,8 @@ public class Config {
     public static final String LEFT_FRONT_DRIVE = "frontleft";
     public static final String LEFT_BACK_DRIVE = "backleft";
 
-    public static final String SLIDE_MOTOR = "slide";
+    public static final String LAUNCH_MOTOR = "launchA";
+    public static final String LAUNCH_MOTOR2 = "launchB";
     public static final String ARM_MOTOR = "motorarm";
     public static final String INTAKE = "intake";
 

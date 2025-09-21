@@ -24,6 +24,7 @@ public class Config {
     public static final String LAUNCH_MOTOR2 = "launchB";
     public static final String ARM_MOTOR = "motorarm";
     public static final String INTAKE = "intake";
+    public static final String ODOM = "imu";
 
     private ElapsedTime runtime = new ElapsedTime();
 

@@ -27,11 +27,17 @@ public class Launcher implements SubSystem {
         launchMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public void update() {
-        if (config.gamePad1.a) {
-            launchMotor1.setPower(1.0);
+        if (config.gamePad1.left_trigger>0) {
+            launchMotor1.setPower(1.2*config.gamePad1.left_trigger);
         }
-        else if (config.gamePad1.b) {
-            launchMotor1.setPower(-1.0);
+        else if (config.gamePad1.right_trigger>0) {
+            launchMotor1.setPower(-1.2*config.gamePad1.right_trigger);
+        }
+        else if (config.gamePad1.a){
+            launchMotor1.setPower(0);
+        }
+        else{
+            launchMotor1.setPower(0);
         }
         //launchMotor2.setPower(launchpower*-2/3.5);
     }

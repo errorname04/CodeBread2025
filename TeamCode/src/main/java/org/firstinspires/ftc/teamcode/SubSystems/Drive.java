@@ -56,7 +56,11 @@ public class Drive implements SubSystem {
     }
 
     public void update() {
-
+        double realposX;
+        double realposY;
+        double realposZ;
+        double startX=0;
+        double startY=0;
         // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
         double axial = -config.gamePad1.left_stick_y;  // Note: pushing stick forward gives negative value
         double lateral = config.gamePad1.left_stick_x;
@@ -121,8 +125,27 @@ public class Drive implements SubSystem {
             /*
             gets the current Position (x & y in mm, and heading in degrees) of the robot, and prints it.
              */
+
         Pose2D pos = odo.getPosition();
-        String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
+        if (config.gamePad1.x) {
+            startX+=0.5;
+        }
+        if (config.gamePad1.x) {
+            startX-=0.5;
+        }
+        if (config.gamePad1.dpad_left) {
+            startY-=0.5;
+        }
+        if (config.gamePad1.dpad_left) {
+            startY+=0.5;
+        }
+        if (config.gamePad1.dpad_up) {
+            config.telemetry.addData("startX", startX);
+            config.telemetry.addData("startY", startY);
+        }
+        realposX = pos.getX(DistanceUnit.MM)-startX;
+        realposY = pos.getY(DistanceUnit.MM)-startY;
+        String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", realposX, realposY, pos.getHeading(AngleUnit.DEGREES));
         config.telemetry.addData("Position", data);
 
             /*
@@ -145,7 +168,6 @@ public class Drive implements SubSystem {
         config.telemetry.addData("Status", odo.getDeviceStatus());
 
         config.telemetry.addData("Pinpoint Frequency", odo.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
-        //config.telemetry.addData("REV Hub Frequency: ", config.frequency); //prints the control system refresh rate
-
+        //config.telemetry.addData("REV Hub Frequency: ", config.frequency); //prints the control system refresh rat
     }
 }

@@ -7,15 +7,21 @@ import org.firstinspires.ftc.teamcode.SubSystems.Launcher;
 
 import java.util.LinkedList;
 import java.util.List;
-
+enum state {
+    IDLE,
+    DRIVING,
+    SHOOTING
+};
 public class ManualRobot {
     // Config class to all hardware controls
     Config config;
     List<SubSystem> subSystems = new LinkedList<SubSystem>();
+    state curstate = state.IDLE;
 
     // Constructor
     public ManualRobot(Config cfg) {
         config = cfg;
+
         subSystems.add(new Drive(config));
         subSystems.add(new Launcher(config));
         subSystems.add(new Intake(config));

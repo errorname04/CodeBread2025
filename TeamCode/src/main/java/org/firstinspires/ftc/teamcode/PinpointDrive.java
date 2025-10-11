@@ -10,12 +10,18 @@ import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriver;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.acmerobotics.roadrunner.ftc.LazyImu;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.messages.PoseMessage;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+
+import java.util.Locale;
+
 /**
  * Experimental extension of MecanumDrive that uses the Gobilda Pinpoint sensor for localization.
  * <p>
@@ -76,9 +82,11 @@ public class PinpointDrive extends MecanumDrive {
     public static Params PARAMS = new Params();
     public GoBildaPinpointDriverRR pinpoint;
     private Pose2d lastPinpointPose = pose;
+    public org.firstinspires.ftc.teamcode.Config config;
 
-    public PinpointDrive(HardwareMap hardwareMap, Pose2d pose) {
+    public PinpointDrive(HardwareMap hardwareMap, Pose2d pose, Telemetry telemetry) {
         super(hardwareMap, pose);
+        config = new org.firstinspires.ftc.teamcode.Config(telemetry, hardwareMap, null, null);
         FlightRecorder.write("PINPOINT_PARAMS",PARAMS);
         pinpoint = hardwareMap.get(GoBildaPinpointDriverRR.class,PARAMS.pinpointDeviceName);
 
@@ -138,6 +146,10 @@ public class PinpointDrive extends MecanumDrive {
         FlightRecorder.write("ESTIMATED_POSE", new PoseMessage(pose));
         FlightRecorder.write("PINPOINT_RAW_POSE",new FTCPoseMessage(pinpoint.getPosition()));
         FlightRecorder.write("PINPOINT_STATUS",pinpoint.getDeviceStatus());
+
+        String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pose.position.x, pose.position.y, pose.heading.toDouble());
+        config.telemetry.addData("Position", data);
+        config.telemetry.update();
 
         return pinpoint.getVelocityRR();
     }

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="Code Bread teleop v0.5", group="Linear Opmode")
+@TeleOp(name="Code Bread teleop v0.71", group="Linear Opmode")
 public class TeleOpManual extends LinearOpMode {
     // Config
     Config config = null;

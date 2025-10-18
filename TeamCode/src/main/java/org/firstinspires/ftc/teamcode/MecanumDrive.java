@@ -52,7 +52,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
-public final class MecanumDrive {
+public class MecanumDrive {
     public static class Params {
         // IMU orientation
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
@@ -108,12 +108,12 @@ public final class MecanumDrive {
 
     public final VoltageSensor voltageSensor;
 
-    public final LazyImu lazyImu;
+    public LazyImu lazyImu;
 
     public final Localizer localizer;
     public Pose2d pose;
 
-    private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
+    final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 
     private final DownsampledWriter estimatedPoseWriter = new DownsampledWriter("ESTIMATED_POSE", 50_000_000);
     private final DownsampledWriter targetPoseWriter = new DownsampledWriter("TARGET_POSE", 50_000_000);
@@ -157,10 +157,10 @@ public final class MecanumDrive {
             if (!initialized) {
                 initialized = true;
 
-                lastLeftFrontPos = leftFrontPosVel.position;
-                lastLeftBackPos = leftBackPosVel.position;
-                lastRightBackPos = rightBackPosVel.position;
-                lastRightFrontPos = rightFrontPosVel.position;
+                double lastLeftFrontPos = leftFrontPosVel.position;
+                double lastLeftBackPos = leftBackPosVel.position;
+                double lastRightBackPos = rightBackPosVel.position;
+                double lastRightFrontPos = rightFrontPosVel.position;
 
                 lastHeading = heading;
 
@@ -190,10 +190,10 @@ public final class MecanumDrive {
                     }).times(PARAMS.inPerTick)
             ));
 
-            lastLeftFrontPos = leftFrontPosVel.position;
-            lastLeftBackPos = leftBackPosVel.position;
-            lastRightBackPos = rightBackPosVel.position;
-            lastRightFrontPos = rightFrontPosVel.position;
+            double lastLeftFrontPos = leftFrontPosVel.position;
+            double lastLeftBackPos = leftBackPosVel.position;
+            double lastRightBackPos = rightBackPosVel.position;
+            double lastRightFrontPos = rightFrontPosVel.position;
 
             lastHeading = heading;
 

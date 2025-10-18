@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.SubSystems.Drive;
 import org.firstinspires.ftc.teamcode.SubSystems.Intake;
+import org.firstinspires.ftc.teamcode.SubSystems.RealIntake;
 import org.firstinspires.ftc.teamcode.SubSystems.SubSystem;
 import org.firstinspires.ftc.teamcode.SubSystems.Launcher;
 
@@ -25,6 +26,7 @@ public class ManualRobot {
         subSystems.add(new Drive(config));
         subSystems.add(new Launcher(config));
         subSystems.add(new Intake(config));
+        subSystems.add(new RealIntake(config));
 //        subSystems.add(new Arm(config));
 //        subSystems.add(new Intake(config));
     }

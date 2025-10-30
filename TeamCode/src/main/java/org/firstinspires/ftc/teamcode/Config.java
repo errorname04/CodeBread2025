@@ -25,7 +25,7 @@ public class Config {
     public static final String ARM_MOTOR = "motorarm";
     public static final String INTAKE = "intake";
     public static final String INTAKE_MOTOR = "intakemotor";
-    public static final String ODOM = "imu";
+    public static final String ODOM = "pinpoint";
 
     private ElapsedTime runtime = new ElapsedTime();
 
